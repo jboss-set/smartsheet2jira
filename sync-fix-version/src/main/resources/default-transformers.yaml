@@ -1,0 +1,4 @@
+---
+- sheetName: "EAP 8.0.z. v10 _Latest version"
+  taskPattern: "CP GA EAP 8\\.0\\.(\\d[\\.\\d]*).*"
+  fixVersionFormat: "8.0 Update %s"

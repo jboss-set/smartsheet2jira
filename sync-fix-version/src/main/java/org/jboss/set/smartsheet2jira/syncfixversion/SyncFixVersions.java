@@ -45,18 +45,20 @@ import java.util.regex.Pattern;
 
 public class SyncFixVersions {
     public static void main(final String[] args) throws SmartsheetException, IOException {
-        final String accessToken = args[0];
         System.out.println(new File(".").getAbsoluteFile());
+
         final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         mapper.findAndRegisterModules();
-        // TODO: properly find default-transformers.yaml
-        final List<Transformer> transformers = mapper.readValue(new File("sync-fix-version/src/main/resources/default-transformers.yaml"), new TypeReference<List<Transformer>>(){});
-        final Smartsheet smartsheet = SmartsheetFactory.createDefaultClient(accessToken);
+        final List<Transformer> transformers = mapper.readValue(SyncFixVersions.class.getResource("/default-transformers.yaml"), new TypeReference<List<Transformer>>(){});
+        final Map<String, String> secrets = mapper.readValue(SyncFixVersions.class.getResource("/secrets.yaml"), Map.class);
+
+        final Smartsheet smartsheet = SmartsheetFactory.createDefaultClient(secrets.get("smartsheetAccessToken"));
         final Map<String, Sheet> sheetsMap = new HashMap<>();
         final PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets();
         for (Sheet sheet : sheets.getData()) {
             sheetsMap.put(sheet.getName(), sheet);
         }
+
         for (Transformer transformer : transformers) {
             final String sheetName = transformer.getSheetName();
             final Sheet s = sheetsMap.get(sheetName);

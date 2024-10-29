@@ -1,4 +1,3 @@
 /.idea
-/sync-fix-version/src/main/resources/secrets.yaml
 *.swp
 target

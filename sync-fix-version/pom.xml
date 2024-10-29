@@ -13,6 +13,32 @@
 
     <packaging>jar</packaging>
 
+    <build>
+        <plugins>
+            <!--
+                For ease of use create an uber syncfixversions.jar. Note that
+                it is *not* an executable jar as we want the resources to come
+                from a user specified classpath.
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>syncfixversions</finalName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

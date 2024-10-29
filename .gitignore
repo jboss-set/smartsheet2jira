@@ -1,3 +1,4 @@
 /.idea
 *.swp
+dependency-reduced-pom.xml
 target

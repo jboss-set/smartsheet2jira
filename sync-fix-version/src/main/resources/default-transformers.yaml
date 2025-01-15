@@ -2,3 +2,6 @@
 - sheetName: "EAP 8.0.z. v10 _Latest version"
   taskPattern: "CP GA EAP 8\\.0\\.(\\d[\\.\\d]*).*"
   fixVersionFormat: "8.0 Update %s"
+- sheetName: "EAP 7.4.z and EAP XPx 7.4.z"
+  taskPattern: "EAP 7\\.4\\.(\\d[\\.\\d]*).GA"
+  fixVersionFormat: "7.4.%s.GA"

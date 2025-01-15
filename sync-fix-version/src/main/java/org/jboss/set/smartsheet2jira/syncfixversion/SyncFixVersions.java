@@ -96,6 +96,7 @@ public class SyncFixVersions {
             for (Column column : sheet.getColumns()) {
                 columnMap.put(column.getTitle(), column);
             }
+            final int doneIndex = Optional.ofNullable(columnMap.get("Done checkbox")).orElse(columnMap.get("Done")).getIndex();
             final Pattern pattern = Pattern.compile(transformer.getTaskPattern());
             final String format = transformer.getFixVersionFormat();
             final List<Row> rows = sheet.getRows();
@@ -108,7 +109,7 @@ public class SyncFixVersions {
                 if (processed.contains(taskName)) continue;
                 final String finish = Optional.ofNullable(cells.get(columnMap.get("Finish").getIndex()).getValue()).orElse("").toString();
                 final DateTime finishDateTime = DateTime.parse(finish).withTimeAtStartOfDay();
-                final boolean done = (Boolean) Optional.ofNullable(cells.get(columnMap.get("Done checkbox").getIndex()).getValue()).orElse(false);
+                final boolean done = (Boolean) Optional.ofNullable(cells.get(doneIndex).getValue()).orElse(false);
                 //System.out.println(taskName);
                 final List<String> groups = new ArrayList<>();
                 for (int i = 1; i <= m.groupCount(); i++)
